@@ -44,7 +44,10 @@ export default function Dashboard() {
       }
     );
   };
-  
+
+  const trending = blogList.sort((a, b) => {
+    return b.like - a.like;
+  });
 
   return (
     <>
@@ -57,19 +60,20 @@ export default function Dashboard() {
         <NewBlog />
       </div>
       <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
-        <Card className="p-4" style={{ width: "600px" }}>
+        <Card className="p-4" style={{ width: "800px", maxWidth:"100%" }}>
           <h2 className="text-center mb-4">Blogs</h2>
           {blogList.map((val) => {
             return (
               <div className="blog-card" key={val.id}>
-                <h3>{val.title}</h3>
-                <p>{val.body}</p>
+               <Link to={`blog/${val.id}/`} ><h3>{val.title}</h3></Link>
+                <p>{val.body.substring(0,100)}
+                {val.body.length > 100 && <span>... <Link to={`/blog/${val.id}`}>Read More</Link></span>}
+                </p>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex align-items-center">
                   <button style={{ cursor: "pointer", background: "white", border:"none" }} onClick={() => handleLikeClick(val.id)}>
-  <i className="fa fa-heart" aria-hidden="true"></i>
-</button>
-
+                    <i className="fa fa-heart" aria-hidden="true"></i>
+                  </button>
                     <p className="ml-2">{val.like || 0}</p> &nbsp;&nbsp;
                     <i className="fa fa-comment" aria-hidden="true"></i>
                     <p className="ml-2">0</p> &nbsp;&nbsp;
@@ -77,6 +81,7 @@ export default function Dashboard() {
                     <p className="ml-2">0</p>
                   </div>
                 </div>
+                <hr />
               </div>
             );
           })}

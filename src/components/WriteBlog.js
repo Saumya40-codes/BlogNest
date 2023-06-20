@@ -6,12 +6,14 @@ const WriteBlog = () => {
 
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  
 
 
   const handleSubmit = (e) => {
     Axios.post('http://localhost:5000/api/insert', {
       title: title,
       body: body,
+      like: 0,
     }).then(() => {
       console.log('success');
     }

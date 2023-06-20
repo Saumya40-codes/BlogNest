@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import WriteBlog from "./components/WriteBlog";
 import { useState } from "react";
 import Axios from "axios";
+import Blog from "./components/Blog";
 
 
 
@@ -24,6 +25,7 @@ function App() {
             <PrivateRoute path="/" element={<Dashboard />} />
             <PrivateRoute path="/update-profile" element={<UpdateProfile />} />
             <PrivateRoute path="/write-blog" element={<WriteBlog />} />
+            <PrivateRoute path="/blog/:id" element={<Blog />} />
           </div>
         <div className="container-wrapper">
           <Container
