@@ -1,6 +1,6 @@
 "builds": [
     {
-        "src": "src/App.js",
+        "src": "package.json",
         "use":"@vercel/static-build"
         
     }
