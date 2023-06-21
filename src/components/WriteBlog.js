@@ -1,12 +1,15 @@
 import { Card, Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import Axios from 'axios';
+import { useAuth } from "../contexts/AuthContext";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const WriteBlog = () => {
 
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  
+  const { currentUser } = useAuth();
 
 
   const handleSubmit = (e) => {
@@ -14,6 +17,7 @@ const WriteBlog = () => {
       title: title,
       body: body,
       like: 0,
+      user: String(currentUser.email).substring(0, 6),
     }).then(() => {
       console.log('success');
     }
@@ -33,8 +37,8 @@ const WriteBlog = () => {
           </Form.Group>
           <Form.Group controlId="body">
             <Form.Label>Body</Form.Label>
-            <Form.Control as="textarea" rows={10} required onChange={(e)=>{
-              setBody(e.target.value);
+            <ReactQuill type="textarea" style={{height:"500px", marginBottom:"50px"}} onChange={(e) => {
+              setBody(e); 
             }} />
           </Form.Group>
           <Button className="w-100" type="submit" style={{ marginTop: 20 }}>

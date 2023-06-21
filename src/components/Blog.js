@@ -31,8 +31,7 @@ const Blog = () => {
         <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
           <Card className="p-4" style={{ width: "800px", maxWidth: "100%" }}>
             <h2 className="text-center mb-4">{val.title}</h2>
-            <p>{val.body}</p>
-            <p>{val.like}</p>
+            <div dangerouslySetInnerHTML={{ __html: val.body }}></div>
           </Card>
         </div>
       );

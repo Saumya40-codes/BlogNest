@@ -16,17 +16,25 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     setError("");
     try {
       await toast.promise(
-        login(emailRef.current.value, passwordRef.current.value),
+        new Promise((resolve, reject) => {
+          login(emailRef.current.value, passwordRef.current.value)
+            .then(() => {
+              resolve(); // Resolve the promise if login is successful
+            })
+            .catch((error) => {
+              reject(error); // Reject the promise if there's an error
+            });
+        }),
         {
           pending: 'Logging in...',
-          success: 'Login in successful',
-          error: 'Error logging in'
+          success: 'Login successful',
+          error: 'Error logging in',
         }
-    );
+      );
       navigate("/");
     } catch (err) {
       setError("Username or password didn't match");

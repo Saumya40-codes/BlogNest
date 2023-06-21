@@ -20,6 +20,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   function signup(email, password) {
+    console.log("signup");
     return createUserWithEmailAndPassword(auth, email, password);
   }
 

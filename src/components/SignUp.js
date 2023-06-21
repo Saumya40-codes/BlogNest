@@ -3,7 +3,7 @@ import { Card, Form, Button, Alert } from 'react-bootstrap'
 import { useRef } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 const SignUp = () => {
     const { signup, currentUser } = useAuth()
@@ -26,9 +26,10 @@ const SignUp = () => {
             setError('')
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value)
+            Navigate('/');
         } catch {
             console.log(error)
-            setError('Failed to create an account')
+            setError('Failed to create an account. Your email might already exist')
         }
         setLoading(false)
     }

@@ -8,7 +8,6 @@ import Axios from "axios";
 import '@fortawesome/fontawesome-free/css/all.css';
 import '@fortawesome/fontawesome-free/js/all.js';
 
-
 export default function Dashboard() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -37,6 +36,7 @@ export default function Dashboard() {
                   title: val.title,
                   body: val.body,
                   like: val.like + 1,
+                  user: String(currentUser.email).substring(0,6),
                 }
               : val;
           })
@@ -61,14 +61,19 @@ export default function Dashboard() {
       </div>
       <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
         <Card className="p-4" style={{ width: "800px", maxWidth:"100%" }}>
-          <h2 className="text-center mb-4">Blogs</h2>
+          <h2 className="text-center mb-4">Trending Blogs</h2>
           {blogList.map((val) => {
             return (
               <div className="blog-card" key={val.id}>
+                <div className="d-flex justify-content-between">
+                  <div className="d-flex align-items-center">
+                    <i className="fa fa-user-circle" aria-hidden="true"></i>
+                    <p className="ml-2">{val.user}</p>
+                  </div>
+                </div>
                <Link to={`blog/${val.id}/`} ><h3>{val.title}</h3></Link>
-                <p>{val.body.substring(0,100)}
-                {val.body.length > 100 && <span>... <Link to={`/blog/${val.id}`}>Read More</Link></span>}
-                </p>
+               <div dangerouslySetInnerHTML={{__html:  val.body.length > 100? val.body.substring(0, 100) + '....': val.body.substring(0, 100)}}></div>
+               {val.body.length > 100 ?  <Link to={`blog/${val.id}/`} >Read More</Link> : null} 
                 <div className="d-flex justify-content-between">
                   <div className="d-flex align-items-center">
                   <button style={{ cursor: "pointer", background: "white", border:"none" }} onClick={() => handleLikeClick(val.id)}>
