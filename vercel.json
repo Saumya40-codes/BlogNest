@@ -1,13 +1,8 @@
 {
-  "version": 2,
   "builds": [
     {
-      "src": "src/App.js",
-      "use": "@vercel/static-build",
-      "config": {
-        "buildCommand": "npm run build",
-        "outputDirectory": "build"
-      }
+      "src": "package.json",
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
