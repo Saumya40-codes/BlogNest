@@ -7,7 +7,7 @@ const YourBlog = () => {
   const [blog, setBlog] = useState([]);
   const {currentUser} = useAuth();
 
-  const username = String(currentUser.email).substring(0,6);
+  const username = String(currentUser?.email).substring(0,6);
 
   useEffect(() => {
     Axios.get(`http://localhost:5000/api/get/`).then((response) => {
