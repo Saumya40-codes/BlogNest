@@ -15,6 +15,8 @@ const SignUp = () => {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
+    const navigate = useNavigate();
+
     async function handleSubmit(e) {
         e.preventDefault()
         
@@ -26,7 +28,7 @@ const SignUp = () => {
             setError('')
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value)
-            Navigate('/');
+            navigate('/')
         } catch {
             console.log(error)
             setError('Failed to create an account. Your email might already exist')
