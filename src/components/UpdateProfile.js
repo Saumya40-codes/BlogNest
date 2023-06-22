@@ -53,7 +53,7 @@ export default function UpdateProfile() {
                 type="email"
                 ref={emailRef}
                 required
-                defaultValue={currentUser.email}
+                defaultValue={currentUser?.email}
               />
             </Form.Group>
             <Form.Group id="password">

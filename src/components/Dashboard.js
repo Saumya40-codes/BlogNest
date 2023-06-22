@@ -22,6 +22,9 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
+    if(!currentUser) {
+      navigate("/login");
+    }
     Axios.get("http://localhost:5000/api/get").then((response) => {
       setBlogList(response.data);
     });
