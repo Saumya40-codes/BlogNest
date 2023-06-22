@@ -8,6 +8,8 @@ import Axios from "axios";
 import '@fortawesome/fontawesome-free/css/all.css';
 import '@fortawesome/fontawesome-free/js/all.js';
 
+import YourBlog from "./YourBlog";
+
 export default function Dashboard() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -52,12 +54,16 @@ export default function Dashboard() {
   return (
     <>
       <div className="d-flex justify-content-end">
-        <Link to="/update-profile" className="btn btn-primary mt-3" style={{ maxWidth: 200 }}>
+        <Link to="/update-profile" className="btn btn-primary mt-3">
           Update Profile
         </Link>
       </div>
       <div className="d-flex justify-content-end">
         <NewBlog />
+      </div>
+      <div className="d-flex justify-content-space-between" style={{columnGap:"30px"}}>
+      <div className="d-flex justify-content-start">
+        <YourBlog />
       </div>
       <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
         <Card className="p-4" style={{ width: "800px", maxWidth:"100%" }}>
@@ -91,6 +97,7 @@ export default function Dashboard() {
             );
           })}
         </Card>
+      </div>
       </div>
       <footer className="w-100 text-left mt-2">
         <Button variant="link" onClick={handleLogout}>
