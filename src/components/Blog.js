@@ -31,7 +31,7 @@ const Blog = () => {
             <div key={val.id}>
               <h2 className="text-center mb-4">{val.title}</h2>
               <div dangerouslySetInnerHTML={{ __html: val.body }}></div>
-              {val.user === String(currentUser.email).substring(0, 6) && <div>
+              {val.user === String(currentUser?.email).substring(0, 6) && <div>
                 <div
                   className="btn btn-danger"
                   style={{ width: "100px", margin: "10px" }}

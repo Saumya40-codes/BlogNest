@@ -68,7 +68,7 @@ export default function Dashboard() {
       <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
         <Card className="p-4" style={{ width: "800px", maxWidth:"100%" }}>
           <h2 className="text-center mb-4">Trending Blogs</h2>
-          {blogList.map((val) => {
+          {blogList?.map((val) => {
             return (
               <div className="blog-card" key={val.id}>
                 <div className="d-flex justify-content-between">
