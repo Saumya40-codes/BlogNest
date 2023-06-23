@@ -7,14 +7,39 @@ import NewBlog from "./NewBlog";
 import Axios from "axios";
 import '@fortawesome/fontawesome-free/css/all.css';
 import '@fortawesome/fontawesome-free/js/all.js';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import YourBlog from "./YourBlog";
 
 export default function Dashboard() {
+
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
   const [blogList, setBlogList] = useState([]);
+
+  const theme = createTheme({
+    palette: {
+      mode: "dark", // Apply dark mode
+      primary: {
+        main: "#2196f3", // Set the primary color
+      },
+      // Add other color customizations
+      // ...
+    },
+  });
+
+  const logoutButtonStyle = {
+    position: "fixed",
+    bottom: "20px",
+    right: "20px",
+    padding: "10px",
+    background: "#f8f9fa",
+    border: "none",
+    borderRadius: "5px",
+    boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
+    cursor: "pointer",
+  };
 
   function handleLogout() {
     setError("");
@@ -55,8 +80,9 @@ export default function Dashboard() {
   });
 
   return (
-    <>
-      <div className="d-flex justify-content-end">
+    <ThemeProvider theme={theme}>
+    <div>
+      <div className="d-flex justify-content-end" style={{marginBottom:"20px"}}>
         <Link to="/update-profile" className="btn btn-primary mt-3">
           Update Profile
         </Link>
@@ -64,12 +90,12 @@ export default function Dashboard() {
       <div className="d-flex justify-content-end">
         <NewBlog />
       </div>
-      <div className="d-flex justify-content-space-between" style={{columnGap:"30px"}}>
+      <div className="d-flex justify-content-space-between" style={{columnGap:"45px"}}>
       <div className="d-flex justify-content-start">
         <YourBlog />
       </div>
-      <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
-        <Card className="p-4" style={{ width: "800px", maxWidth:"100%" }}>
+      <div className="d-flex justify-content-center align-items-center" style={{ maxHeight: "100vh", position:"absolute", width:"1800px" }}>
+        <Card className="p-4" style={{ width: "950px", maxWidth:"100%" }}>
           <h2 className="text-center mb-4">Trending Blogs</h2>
           {blogList?.map((val) => {
             return (
@@ -102,11 +128,12 @@ export default function Dashboard() {
         </Card>
       </div>
       </div>
-      <footer className="w-100 text-left mt-2">
-        <Button variant="link" onClick={handleLogout}>
-          Log Out
-        </Button>
-      </footer>
-    </>
+      <div className="d-flex justify-content-end fixed-bottom p-3">
+      <Button variant="link" onClick={handleLogout} style={logoutButtonStyle}>
+        Log Out
+      </Button>
+    </div>
+    </div>
+    </ThemeProvider>
   );
 }
