@@ -22,6 +22,17 @@ app.get("/api/get", (req, res) => {
     });
 });
 
+app.post("/api/comments", (req, res) => {
+    const commentId = req.body.commentId;
+    const comment = req.body.comment;
+    const user = req.body.user;
+    
+    const sqlInsert = "INSERT INTO comments (commentId, comment, `user`) VALUES (?,?,?)";
+    db.query(sqlInsert, [commentId, comment, user], (err, result) => {
+        res.send(result);
+    });
+});
+
 app.put("/api/like", (req, res) => {
     const blogId = req.body.blogId;
     const sqlUpdate = "UPDATE blogs SET `like` = `like` + 1 WHERE id = ?";
@@ -45,6 +56,13 @@ app.post("/api/insert/", (req, res) => {
 
     const sqlInsert = "INSERT INTO blogs (title, body, `like`, `user`) VALUES (?,?,?,?)";
     db.query(sqlInsert, [title, body, like,user], (err, result) => {
+        res.send(result);
+    });
+});
+
+app.get("/api/get/comments", (req, res) => {
+    const sqlSelect = "SELECT * FROM comments";
+    db.query(sqlSelect, (err, result) => {
         res.send(result);
     });
 });
