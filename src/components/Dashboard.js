@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
-import {  Alert } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import NewBlog from "./NewBlog";
 import Axios from "axios";
-import '@fortawesome/fontawesome-free/css/all.css';
-import '@fortawesome/fontawesome-free/js/all.js';
+import "@fortawesome/fontawesome-free/css/all.css";
+import "@fortawesome/fontawesome-free/js/all.js";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Grid, Card, CardContent, Typography, Button } from "@mui/material";
+import { Grid, Card, CardContent, Typography, Button, IconButton } from "@mui/material";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import CommentIcon from '@mui/icons-material/Comment';
 
 import YourBlog from "./YourBlog";
 
 export default function Dashboard() {
-
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
@@ -98,10 +99,12 @@ export default function Dashboard() {
         {/* Update the JSX structure with Material-UI components */}
         <Grid container spacing={2} justifyContent="flex-end" sx={{ marginBottom: "20px", marginRight:"20px" }}>
           <Grid item>
-          <Link to="/write-blog" style={{ textDecoration: "none" }}>
-            <NewBlog />
-          </Link>
-            <Button variant="contained" component={Link} to="/update-profile">Update Profile</Button>
+            <Link to="/write-blog" style={{ textDecoration: "none" }}>
+              <NewBlog />
+            </Link>
+            <Button variant="contained" component={Link} to="/update-profile">
+              Update Profile
+            </Button>
           </Grid>
         </Grid>
         <Grid container spacing={2}>
@@ -117,19 +120,30 @@ export default function Dashboard() {
             {/* Replace the trending blog list with Material-UI Grid */}
             <Card>
               <CardContent>
-                <Typography variant="h4" gutterBottom>Trending Blogs</Typography>
+                <Typography variant="h4" gutterBottom>
+                  Trending Blogs
+                </Typography>
                 <Grid container spacing={2}>
                   {blogList?.map((val) => (
                     <Grid item xs={12} key={val.id}>
                       <Card>
                         <CardContent>
-                          <Typography variant="h5" component={Link} to={`blog/${val.id}`}>{val.title}</Typography>
+                          <Typography variant="h5" component={Link} to={`blog/${val.id}`}>
+                            {val.title}
+                          </Typography>
                           <Typography variant="body1">
-                          <div dangerouslySetInnerHTML={{ __html: val.body.length > 100 ? `${val.body.substring(0, 100)}....` : val.body }}></div>
+                            <div dangerouslySetInnerHTML={{ __html: val.body.length > 100 ? `${val.body.substring(0, 100)}....` : val.body }}></div>
                             {val.body.length > 100 && <Link to={`blog/${val.id}`}>Read More</Link>}
                           </Typography>
-                          <Typography variant="subtitle1">
-                            Likes: {val.like || 0} | Comments: {commentCounts[val.id] || 0}
+                          <Typography variant="subtitle1" sx={{ display: "flex", alignItems: "center" }}>
+                            <IconButton aria-label="like" onClick={() => handleLikeClick(val.id)}>
+                              <ThumbUpIcon />
+                            </IconButton>
+                            {val.like || 0}
+                            <IconButton aria-label="comment">
+                              <CommentIcon />
+                            </IconButton>
+                            {commentCounts[val.id] || 0}
                           </Typography>
                         </CardContent>
                       </Card>
@@ -146,4 +160,4 @@ export default function Dashboard() {
       </div>
     </ThemeProvider>
   );
-}  
+}
