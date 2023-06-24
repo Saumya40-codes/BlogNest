@@ -12,6 +12,7 @@ const NewBlog = () => {
 
   return (
     <Button
+      style={{marginRight:"20px"}}
       variant="contained"
       color="primary"
       endIcon={<FaPen />}

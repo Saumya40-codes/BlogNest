@@ -36,8 +36,8 @@ const Comments = ({ id }) => {
 
   return (
     <>
-      <div className="comments-container" style={{ position: "fixed", top: "20px", right: "200px", zIndex: "999"}}>
-        <Card className="p-4" style={{ maxWidth: "400px" }}>
+      <div className="comments-container">
+        <Card className="p-4" style={{ maxWidth: "1000px" }}>
           <h2 className="text-center mb-4">Comments</h2>
           <div className="comment-user">
             <i className="fa fa-user-circle" aria-hidden="true"></i>
@@ -55,12 +55,12 @@ const Comments = ({ id }) => {
                 value={body}
               />
             </Form.Group>
-            <Button type="submit" onClick={handleSubmit}>
+            <Button type="submit" onClick={handleSubmit} style={{marginTop:"20px"}}>
               Submit
             </Button>
           </Form>
         </Card>
-        <div className="comment-list">
+        <div className="comment-list" style={{marginTop:"20px"}}>
           {comments
             .filter((val) => val?.commentId === id)
             .map((val) => (

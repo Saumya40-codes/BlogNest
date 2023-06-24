@@ -8,7 +8,7 @@ import Comments from './Comments';
 
 const Blog = () => {
   const [blogList, setBlogList] = useState([]);
-  const [showComments, setShowComments] = useState(false); // Track whether to show the comments section
+  const [showComments, setShowComments] = useState(false);
   const { id } = useParams();
   const { currentUser } = useAuth();
   const navigate = useNavigate();
@@ -25,36 +25,49 @@ const Blog = () => {
   };
 
   const handleCommentClick = () => {
-    setShowComments(!showComments); // Toggle the state to show/hide the comments section
+    setShowComments(!showComments);
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", marginTop: "40px" }}>
-      <Card className="p-4" style={{ width: "800px", maxWidth: "100%" }}>
-        {blogList
-          .filter((val) => val?.id === parseInt(id))
-          .map((val) => (
-            <div key={val.id}>
-              <h2 className="text-center mb-4">{val.title}</h2>
-              <div dangerouslySetInnerHTML={{ __html: val.body }}></div>
-              {val.user === String(currentUser?.email).substring(0, 6) && (
-                <div>
-                  <div
-                    className="btn btn-danger"
-                    style={{ width: "100px", margin: "10px" }}
-                    onClick={() => deleteBlog(val.id)}
-                  >
-                    Delete
+    <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", marginTop: "40px", flexDirection:"column" }}>
+      <div style={{ width: "1000px" }}>
+        <Card className="p-4" style={{ width: "100%", maxWidth: "100%" }}>
+          {/* Blog Section */}
+          {blogList
+            .filter((val) => val?.id === parseInt(id))
+            .map((val) => (
+              <div key={val.id}>
+                {/* Blog content */}
+                <h2 className="text-center mb-4">{val.title}</h2>
+                <div dangerouslySetInnerHTML={{ __html: val.body }}></div>
+                {/* Delete button */}
+                {val.user === String(currentUser?.email).substring(0, 6) && (
+                  <div>
+                    <div
+                      className="btn btn-danger"
+                      style={{ width: "100px", margin: "10px" }}
+                      onClick={() => deleteBlog(val.id)}
+                    >
+                      Delete
+                    </div>
                   </div>
+                )}
+                {/* Comment button */}
+                <div className="btn btn-primary mt-3" onClick={handleCommentClick} style={{ margin: "10px" }}>
+                  Comment
                 </div>
-              )}
-              <div className="btn btn-primary mt-3" onClick={handleCommentClick} style={{margin:"10px"}}>
-                Comment
               </div>
-            </div>
-          ))}
-      </Card>
-      {showComments && <Comments id={id} />}
+            ))}
+        </Card>
+      </div>
+      {showComments && (
+        <div style={{ width: "1000px", marginTop: "20px" }}>
+          <Card className="p-4" style={{ width: "100%", maxWidth: "100%" }}>
+            {/* Comment Section */}
+            <Comments id={id} />
+          </Card>
+        </div>
+      )}
     </div>
   );
 };

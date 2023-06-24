@@ -1,4 +1,4 @@
-import { Card, Form, Button } from 'react-bootstrap';
+import { Card, TextField, Button, Container } from '@mui/material';
 import { useState } from 'react';
 import Axios from 'axios';
 import { useAuth } from "../contexts/AuthContext";
@@ -6,13 +6,12 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 const WriteBlog = () => {
-
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const { currentUser } = useAuth();
 
-
   const handleSubmit = (e) => {
+    e.preventDefault();
     Axios.post('http://localhost:5000/api/insert', {
       title: title,
       body: body,
@@ -20,33 +19,44 @@ const WriteBlog = () => {
       user: String(currentUser.email).substring(0, 6),
     }).then(() => {
       console.log('success');
-    }
-    );
+    });
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
-      <Card className="p-4" style={{ width: "600px" }}>
+    <Container
+      maxWidth="sm"
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        backgroundColor: "#f5f5f5",
+      }}
+    >
+      <Card sx={{ width: "100%", p: 4 }}>
         <h2 className="text-center mb-4">Write Blog</h2>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="title">
-            <Form.Label>Title</Form.Label>
-            <Form.Control type="text" required onChange={(e) =>{
-              setTitle(e.target.value);
-            }} />
-          </Form.Group>
-          <Form.Group controlId="body">
-            <Form.Label>Body</Form.Label>
-            <ReactQuill type="textarea" style={{height:"500px", marginBottom:"50px"}} onChange={(e) => {
-              setBody(e); 
-            }} />
-          </Form.Group>
-          <Button className="w-100" type="submit" style={{ marginTop: 20 }}>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            id="title"
+            label="Title"
+            variant="outlined"
+            fullWidth
+            required
+            margin="normal"
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <ReactQuill
+            theme="snow"
+            value={body}
+            onChange={setBody}
+            style={{ height: "300px", marginBottom: "20px" }}
+          />
+          <Button variant="contained" type="submit" fullWidth>
             Submit
           </Button>
-        </Form>
+        </form>
       </Card>
-    </div>
+    </Container>
   );
 };
 
