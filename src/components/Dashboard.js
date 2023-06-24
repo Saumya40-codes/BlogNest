@@ -11,7 +11,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Grid, Card, CardContent, Typography, Button, IconButton } from "@mui/material";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import CommentIcon from '@mui/icons-material/Comment';
-
+import { FaBell } from "react-icons/fa";
+import ShareIcon from '@mui/icons-material/Share';
+import Tooltip from '@mui/material/Tooltip';
 import YourBlog from "./YourBlog";
 
 export default function Dashboard() {
@@ -20,6 +22,7 @@ export default function Dashboard() {
   const { currentUser, logout } = useAuth();
   const [blogList, setBlogList] = useState([]);
   const [commentCounts, setCommentCounts] = useState({});
+  const [showCopyDialog, setShowCopyDialog] = useState(false);
 
   const theme = createTheme({
     palette: {
@@ -44,6 +47,20 @@ export default function Dashboard() {
     cursor: "pointer",
   };
 
+  const handleShareClick = (blogId) => {
+    const blogLink = `${window.location.origin}/blog/${blogId}`;
+    navigator.clipboard.writeText(blogLink)
+      .then(() => {
+        setShowCopyDialog(true);
+        setTimeout(() => {
+          setShowCopyDialog(false);
+        }, 2000);
+      })
+      .catch((error) => {
+        console.log("Error copying link to clipboard:", error);
+      });
+  };
+  
   function handleLogout() {
     setError("");
     navigate("/login");
@@ -56,6 +73,7 @@ export default function Dashboard() {
     Axios.get("http://localhost:5000/api/get").then((response) => {
       setBlogList(response.data);
     });
+
   }, []);
 
   useEffect(() => {
@@ -96,9 +114,17 @@ export default function Dashboard() {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        {/* Update the JSX structure with Material-UI components */}
+        {error && <Alert variant="danger">{error}</Alert>}
+        {showCopyDialog && (
+          <Alert variant="success" style={{ top: "0px", display:"flex", justifyContent:"center", alignItems:"center"}}>
+            Link copied to clipboard!
+          </Alert>
+        )}
         <Grid container spacing={2} justifyContent="flex-end" sx={{ marginBottom: "20px", marginRight:"20px" }}>
           <Grid item>
+          <Button variant="contained" style={{marginRight:"20px"}}>
+            Notifications <FaBell />
+          </Button>
             <Link to="/write-blog" style={{ textDecoration: "none" }}>
               <NewBlog />
             </Link>
@@ -136,15 +162,20 @@ export default function Dashboard() {
                             {val.body.length > 100 && <Link to={`blog/${val.id}`}>Read More</Link>}
                           </Typography>
                           <Typography variant="subtitle1" sx={{ display: "flex", alignItems: "center" }}>
-                            <IconButton aria-label="like" onClick={() => handleLikeClick(val.id)}>
-                              <ThumbUpIcon />
-                            </IconButton>
-                            {val.like || 0}
-                            <IconButton aria-label="comment">
-                              <CommentIcon />
-                            </IconButton>
-                            {commentCounts[val.id] || 0}
-                          </Typography>
+                          <IconButton aria-label="like" onClick={() => handleLikeClick(val.id)}>
+                          <ThumbUpIcon />
+                          </IconButton>
+                          {val.like || 0}
+                          <IconButton aria-label="comment">
+                          <CommentIcon />
+                         </IconButton>
+                         {commentCounts[val.id] || 0}
+                         <IconButton aria-label="share" onClick={() => handleShareClick(val.id)}>
+                        <Tooltip title="Share">
+                           <ShareIcon />
+                        </Tooltip>
+                        </IconButton>
+                         </Typography>
                         </CardContent>
                       </Card>
                     </Grid>
