@@ -15,6 +15,7 @@ import { FaBell } from "react-icons/fa";
 import ShareIcon from '@mui/icons-material/Share';
 import Tooltip from '@mui/material/Tooltip';
 import YourBlog from "./YourBlog";
+import Notifications from "./Notifications";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ export default function Dashboard() {
   const [blogList, setBlogList] = useState([]);
   const [commentCounts, setCommentCounts] = useState({});
   const [showCopyDialog, setShowCopyDialog] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
 
   const theme = createTheme({
     palette: {
@@ -90,27 +92,38 @@ export default function Dashboard() {
     });
   }, []);
 
-  const handleLikeClick = (blogId) => {
-    Axios.put("http://localhost:5000/api/like/", { blogId: blogId }).then(
-      (response) => {
-        setBlogList(
-          blogList.map((val) => {
-            return val.id === blogId
-              ? {
-                  ...val,
-                  like: val.like + 1,
-                }
-              : val;
-          })
-        );
-      }
-    );
-  };
-
+  const handleLikeClick = (blogId, name) => {
+    Axios.put("http://localhost:5000/api/like/", { blogId: blogId }).then((response) => {
+      setBlogList(
+        blogList.map((val) => {
+          return val.id === blogId
+            ? {
+                ...val,
+                like: val.like + 1,
+              }
+            : val;
+        })
+      );
+  
+      Axios.post("http://localhost:5000/api/notif", {
+        type: "like",
+        user: String(currentUser.email).substring(0, 6),
+        host: name,
+      }).catch((error) => {
+        console.log("Error sending notification:", error);
+      });
+    });
+};
+  
   const trending = blogList.sort((a, b) => {
     return b.like - a.like;
   });
 
+  const handleNotificationClick = () => {
+    setShowNotification(!showNotification);
+  };
+
+  const host = String(currentUser).substring(0,6);
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -122,12 +135,17 @@ export default function Dashboard() {
         )}
         <Grid container spacing={2} justifyContent="flex-end" sx={{ marginBottom: "20px", marginRight:"20px" }}>
           <Grid item>
-          <Button variant="contained" style={{marginRight:"20px"}}>
-            Notifications <FaBell />
-          </Button>
-            <Link to="/write-blog" style={{ textDecoration: "none" }}>
+          <Link to="/write-blog" style={{ textDecoration: "none" }}>
               <NewBlog />
-            </Link>
+          </Link>
+          <Button variant="contained" style={{marginRight:"20px"}}  onClick={handleNotificationClick}>
+            Notifications <FaBell  />
+            </Button>
+            {showNotification && (
+              <Alert variant="success" style={{ position: "absolute", top: "50px", right: "120px", zIndex: 999 }}>
+              <Notifications handleClose={handleNotificationClick} host={host} />
+              </Alert>
+            )}
             <Button variant="contained" component={Link} to="/update-profile">
               Update Profile
             </Button>
@@ -162,7 +180,7 @@ export default function Dashboard() {
                             {val.body.length > 100 && <Link to={`blog/${val.id}`}>Read More</Link>}
                           </Typography>
                           <Typography variant="subtitle1" sx={{ display: "flex", alignItems: "center" }}>
-                          <IconButton aria-label="like" onClick={() => handleLikeClick(val.id)}>
+                          <IconButton aria-label="like" onClick={() => handleLikeClick(val.id, val.user)}>
                           <ThumbUpIcon />
                           </IconButton>
                           {val.like || 0}

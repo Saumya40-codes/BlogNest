@@ -46,6 +46,23 @@ app.put("/api/like", (req, res) => {
     });
   });
   
+app.post("/api/notif", (req, res) => {
+    const type = req.body.type;
+    const user = req.body.user;
+    const host = req.body.host;
+    const sqlInsert = "INSERT INTO notifs (type, `user`, `host`) VALUES (?,?, ?)";
+    db.query(sqlInsert, [type, user, host], (err, result) => {
+        res.send(result);
+    });
+});
+
+app.get("/api/get/notif",(req,res)=>{
+    const sqlInsert = "SELECT * FROM notifs";
+    db.query(sqlInsert,(err,result)=>{
+        res.send(result)
+    })
+})
+
 
 app.post("/api/insert/", (req, res) => {
 
