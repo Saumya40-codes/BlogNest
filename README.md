@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# BlogNest
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+BlogNest is a full-stack web application built using React, Node.js, and MySQL. It is a powerful and intuitive blogging platform that allows users to create, read, and share blog posts. The application also includes features such as Firebase authentication, reading modes, liking comments, and a search functionality to easily navigate through the blogs.
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+To get started with BlogNest, follow the instructions below:
 
-### `npm start`
+### Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Node.js installed on your local machine
+- MySQL database setup
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Installation
 
-### `npm test`
+1. Clone the repository to your local machine:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```shell
+   git clone <repository-url>
 
-### `npm run build`
+2. Redirect to project directory
+   ### `cd blognest`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Install Dependencies
+   ###  `npm install`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. Setup MYSQL database
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   I personally did this on MYSQL Workbench
+   use the following command in MYSQL workbench after making a database init named 'crudreact'
+   ### `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '#your MySQL password'; `
+   ###  `flush privileges;`
 
-### `npm run eject`
+5. three tables till now
+   
+   (1) ![image](https://github.com/Saumya40-codes/BlogNest/assets/115284013/c24afb75-24cc-42b9-8885-46a219309d1e)   (Name: blogs) <br />
+   (2) ![image](https://github.com/Saumya40-codes/BlogNest/assets/115284013/af24d86c-9485-4de7-b2e8-dfb17f65074f)   (Name: comments) <br />
+   (3) ![image](https://github.com/Saumya40-codes/BlogNest/assets/115284013/8f33ef12-cf47-41f8-a63a-d7cef608328e)   (Name: notifs)  <br />
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   Dont forget to change mysql configuration in server/index.js (You might only need to change password in it)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+6. run the backend
+   ### `cd server`
+   ### `npm run devStart`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+7. run frontend
+   ### `npm start`
+   
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Features
+Firebase Authentication: Users can sign up and log in to BlogNest using their Firebase accounts, ensuring secure access to the platform.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Write Blog: Authenticated users can create and publish their own blog posts using an intuitive and user-friendly interface.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Read Blog: Users can browse through a collection of blog posts, view the details of each post, and read the content in a clean and visually appealing layout.
 
-### Code Splitting
+Reading Modes: BlogNest offers different reading modes, such as light mode and dark mode, allowing users to customize their reading experience.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Liking Comments: Users can like and interact with blog posts, promoting engagement and community interaction.
 
-### Analyzing the Bundle Size
+Sharing of Blogs: Users can easily share their favorite blog posts with others by generating shareable links or through social media integration.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Search Through Blogs: BlogNest provides functionality allowing users to search for specific blogs or topics of interest, enabling efficient navigation through the platform.
+   
