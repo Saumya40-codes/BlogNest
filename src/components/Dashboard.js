@@ -16,6 +16,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import Tooltip from '@mui/material/Tooltip';
 import YourBlog from "./YourBlog";
 import Notifications from "./Notifications";
+import { SearchRounded } from "@mui/icons-material";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -132,8 +133,13 @@ export default function Dashboard() {
             Link copied to clipboard!
           </Alert>
         )}
-        <Grid container spacing={2} justifyContent="flex-end" sx={{ marginBottom: "20px", marginRight:"20px" }}>
+        <Grid container spacing={2} justifyContent="flex-end" sx={{ marginBottom: "20px", marginRight:"20px", marginTop:"-50px" }}>
           <Grid item>
+          <Link to="/search">
+          <Button variant="contained">
+            <SearchRounded />
+            </Button>
+          </Link>
           <Link to="/write-blog" style={{ textDecoration: "none" }}>
               <NewBlog />
           </Link>
@@ -171,7 +177,7 @@ export default function Dashboard() {
                     <Grid item xs={12} key={val.id}>
                       <Card>
                         <CardContent>
-                          <Typography variant="h5" component={Link} to={`blog/${val.id}`}>
+                          <Typography variant="h5" component={Link} to={`blog/${val.id}`} style={{textDecoration:"none", color:"blueviolet"}}>
                             {val.title}
                           </Typography>
                           <Typography variant="body1">

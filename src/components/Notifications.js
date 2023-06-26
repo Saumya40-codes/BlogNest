@@ -24,7 +24,7 @@ const Notifications = ({ handleClose }) => {
           <Typography variant="h6" gutterBottom>
             Notifications
           </Typography>
-          <CloseButton onClick={handleClose} />
+          <CloseButton onClick={handleClose}/>
         </div>
         <CardContent>
   {notifs.length > 0 && notifs ? (

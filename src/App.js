@@ -18,6 +18,7 @@ import { useState } from "react";
 import { Brightness7, Brightness4 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import Notifications from "./components/Notifications";
+import Search from "./components/Search";
 
 function App() {
 
@@ -27,6 +28,9 @@ function App() {
   const theme = createTheme({
     palette: {
       mode:darkMode ? "dark":"light",
+      text: {
+        primary: darkMode ? "#fff" : "#000",
+      },
       primary: {
         main: "#673ab7",
       },
@@ -51,6 +55,7 @@ function App() {
               {darkMode ? <Brightness7  /> : <Brightness4 />}  
           </IconButton>
             <PrivateRoute path="/" element={<Dashboard />} />
+            <PrivateRoute path="/search" element={<Search />} />
             <PrivateRoute path="/update-profile" element={<UpdateProfile />} />
             <PrivateRoute path="/write-blog" element={<WriteBlog />} />
             <PrivateRoute path="/blog/:id" element={<Blog />} />

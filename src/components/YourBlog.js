@@ -28,7 +28,7 @@ const YourBlog = () => {
             .map((val) => (
               <Card key={val.id} style={{ marginBottom: '20px', maxWidth:"350px", marginLeft:"20px" }}>
                 <CardContent>
-                  <Typography variant="h6" gutterBottom>
+                  <Typography variant="h6" gutterBottom style={{color:"blueviolet"}}>
                     {val.title}
                   </Typography>
                   <Typography
