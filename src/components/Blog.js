@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card } from 'react-bootstrap';
+import { Grid, Card, CardContent, Typography, Button, IconButton } from "@mui/material";
 import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
@@ -12,6 +12,7 @@ const Blog = () => {
   const { id } = useParams();
   const { currentUser } = useAuth();
   const navigate = useNavigate();
+
 
   useEffect(() => {
     Axios.get("http://localhost:5000/api/get").then((response) => {
@@ -32,6 +33,7 @@ const Blog = () => {
     <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", marginTop: "40px", flexDirection:"column" }}>
       <div style={{ width: "1000px" }}>
         <Card className="p-4" style={{ width: "100%", maxWidth: "100%" }}>
+        <Typography gutterBottom>
           {/* Blog Section */}
           {blogList
             .filter((val) => val?.id === parseInt(id))
@@ -58,6 +60,7 @@ const Blog = () => {
                 </div>
               </div>
             ))}
+            </Typography>
         </Card>
       </div>
       {showComments && (

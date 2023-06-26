@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Grid, Card, CardContent, Typography, IconButton } from "@mui/material";
 import { CloseButton } from 'react-bootstrap';
 import  Axios  from 'axios';
 import { useEffect, useState } from 'react';
@@ -21,11 +21,13 @@ const Notifications = ({ handleClose }) => {
     <div>
       <Card className="p-4">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width:"400px"}}>
-          <Card.Title>Notifications</Card.Title>
+          <Typography variant="h6" gutterBottom>
+            Notifications
+          </Typography>
           <CloseButton onClick={handleClose} />
         </div>
-        <Card.Body>
-  {notifs.length > 0 ? (
+        <CardContent>
+  {notifs.length > 0 && notifs ? (
     notifs
       .filter((val) => val.host === host)
       .map((val, index) => (
@@ -42,7 +44,7 @@ const Notifications = ({ handleClose }) => {
   ) : (
     <p>No new Notifications</p>
   )}
-</Card.Body>
+</CardContent>
 
       </Card>
     </div>

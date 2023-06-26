@@ -23,16 +23,6 @@ const WriteBlog = () => {
   };
 
   return (
-    <Container
-      maxWidth="sm"
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        backgroundColor: "#f5f5f5",
-      }}
-    >
       <Card sx={{ width: "100%", p: 4 }}>
         <h2 className="text-center mb-4">Write Blog</h2>
         <form onSubmit={handleSubmit}>
@@ -49,14 +39,13 @@ const WriteBlog = () => {
             theme="snow"
             value={body}
             onChange={setBody}
-            style={{ height: "300px", marginBottom: "20px" }}
+            style={{ height: "300px", marginBottom: "60px"}}
           />
           <Button variant="contained" type="submit" fullWidth>
             Submit
           </Button>
         </form>
       </Card>
-    </Container>
   );
 };
 

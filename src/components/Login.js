@@ -41,41 +41,31 @@ export default function Login() {
     }
   };
 
-  const theme = createTheme({
-    palette: {
-      background: {
-        default: '#e1f5fe', // light blue color
-      },
-    },
-  });
-
   return (
-    <ThemeProvider theme={theme}>
-      <Card sx={{ backgroundColor: theme.palette.background.default, padding: '20px' }}>
+      <Card style={{height:"490px",padding:"20px", borderRadius:"15px"}}>
         <h2 className="text-center mb-4">Log In</h2>
         {error && <Alert severity="error">{error}</Alert>}
         <form onSubmit={handleSubmit}>
-          <FormControl sx={{ width: '100%', marginBottom: '10px' }}>
+          <FormControl sx={{ width: '100%', marginBottom: '45px' }}>
             <InputLabel htmlFor="email">Email</InputLabel>
             <Input type="email" id="email" inputRef={emailRef} required />
           </FormControl>
-          <FormControl sx={{ width: '100%', marginBottom: '10px' }}>
+          <FormControl sx={{ width: '100%', marginBottom: '45px' }}>
             <InputLabel htmlFor="password">Password</InputLabel>
             <Input type="password" id="password" inputRef={passwordRef} required />
           </FormControl>
-          <Button disabled={loading} variant="contained" type="submit" sx={{ width: '100%', marginBottom: '10px' }}>
+          <Button disabled={loading} variant="contained" type="submit" sx={{ width: '100%', marginBottom: '40px', height:"45px", borderRadius:"18px" }}>
             Log In
           </Button>
         </form>
-        <div className="w-100 text-center mt-3">
+        <div className="w-100 text-center mt-3" style={{marginBottom:"10px"}}>
           <MuiLink component={Link} to="/forgot-password">
             Forgot Password?
           </MuiLink>
         </div>
-      </Card>
-      <div className="w-100 text-center mt-2">
+        <div className="w-100 text-center mt-2">
         Need an account? <MuiLink component={Link} to="/signup">Sign Up</MuiLink>
       </div>
-    </ThemeProvider>
+      </Card>
   );
 }

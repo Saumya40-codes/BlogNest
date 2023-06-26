@@ -62,7 +62,7 @@ export default function Dashboard() {
         console.log("Error copying link to clipboard:", error);
       });
   };
-  
+
   function handleLogout() {
     setError("");
     navigate("/login");
@@ -125,7 +125,6 @@ export default function Dashboard() {
 
   const host = String(currentUser).substring(0,6);
   return (
-    <ThemeProvider theme={theme}>
       <div>
         {error && <Alert variant="danger">{error}</Alert>}
         {showCopyDialog && (
@@ -207,6 +206,5 @@ export default function Dashboard() {
           Log Out
         </Button>
       </div>
-    </ThemeProvider>
   );
 }

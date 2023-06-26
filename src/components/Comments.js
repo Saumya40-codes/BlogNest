@@ -1,5 +1,6 @@
 import { useAuth } from "../contexts/AuthContext";
-import { Form, Button, Card } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
+import { Card } from "@mui/material";
 import { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -57,7 +58,7 @@ const Comments = ({ id }) => {
   return (
     <>
       <div className="comments-container">
-        <Card className="p-4" style={{ maxWidth: "1000px" }}>
+        <Card className="p-4" style={{ maxWidth: "fit-content", border:"none" }}>
           <h2 className="text-center mb-4">Comments</h2>
           <div className="comment-user">
             <i className="fa fa-user-circle" aria-hidden="true"></i>
