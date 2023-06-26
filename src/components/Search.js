@@ -3,13 +3,13 @@ import { Card, FormControl, CardContent } from '@mui/material';
 import { useState } from 'react';
 import { SearchRounded } from '@mui/icons-material';
 import Axios from 'axios';
-import {Link} from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Search = () => {
   const [search, setSearch] = useState('');
   const [blog, setBlog] = useState([]);
   const [filteredBlog, setFilteredBlog] = useState([]);
-
+  
   const handleSearch = (e) => {
     e.preventDefault();
     Axios.get('http://localhost:5000/api/get/').then((response) => {

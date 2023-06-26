@@ -58,7 +58,7 @@ const Comments = ({ id }) => {
   return (
     <>
       <div className="comments-container">
-        <Card className="p-4" style={{ maxWidth: "fit-content", border:"none" }}>
+        <Card className="p-4" style={{ maxWidth: "1000px", border:"none" }}>
           <h2 className="text-center mb-4">Comments</h2>
           <div className="comment-user">
             <i className="fa fa-user-circle" aria-hidden="true"></i>
