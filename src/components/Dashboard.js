@@ -17,6 +17,8 @@ import Tooltip from '@mui/material/Tooltip';
 import YourBlog from "./YourBlog";
 import Notifications from "./Notifications";
 import { SearchRounded } from "@mui/icons-material";
+import { BookmarkAddRounded } from "@mui/icons-material";
+import { BookmarkAdded } from "@mui/icons-material";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -105,6 +107,8 @@ export default function Dashboard() {
             : val;
         })
       );
+
+
   
       Axios.post("http://localhost:5000/api/notif", {
         type: "like",
@@ -114,6 +118,20 @@ export default function Dashboard() {
         console.log("Error sending notification:", error);
       });
     });
+};
+const handleBookmarkClick = (blogId) => {
+  Axios.put("http://localhost:5000/api/bookmark/", { blogId: blogId }).then((response) => {
+    setBlogList(
+      blogList.map((val) => {
+        return val.id === blogId
+          ? {
+              ...val,
+              hasbookmark: val.hasbookmark == "Yes" ? "No" : "Yes",
+            }
+          : val;
+      })
+    );
+  });
 };
   
   const trending = blogList.sort((a, b) => {
@@ -196,6 +214,11 @@ export default function Dashboard() {
                          <IconButton aria-label="share" onClick={() => handleShareClick(val.id)}>
                         <Tooltip title="Share">
                            <ShareIcon />
+                        </Tooltip>
+                        </IconButton>
+                        <IconButton aria-label="bookmark">
+                        <Tooltip title="Bookmark">
+                            {val.hasbookmark == "Yes" ? <BookmarkAdded onClick={() => handleBookmarkClick(val.id)} /> : <BookmarkAddRounded onClick={() => handleBookmarkClick(val.id)}  />}
                         </Tooltip>
                         </IconButton>
                          </Typography>

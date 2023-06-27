@@ -33,6 +33,19 @@ app.post("/api/comments", (req, res) => {
     });
 });
 
+app.put("/api/bookmark", (req, res) => {
+    const blogId = req.body.blogId;
+    const sqlUpdate = "UPDATE blogs SET hasbookmark = IF(hasbookmark = 'Yes', 'No', 'Yes') WHERE id = ?";
+    db.query(sqlUpdate, blogId, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send("Error updating bookmark");
+        } else {
+            res.sendStatus(200);
+        }
+    });
+});
+
 app.put("/api/like", (req, res) => {
     const blogId = req.body.blogId;
     const sqlUpdate = "UPDATE blogs SET `like` = `like` + 1 WHERE id = ?";
