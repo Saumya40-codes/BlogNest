@@ -19,6 +19,7 @@ import { Brightness7, Brightness4 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import Notifications from "./components/Notifications";
 import Search from "./components/Search";
+import Bookmarks from "./components/Bookmarks";
 
 function App() {
 
@@ -60,6 +61,7 @@ function App() {
             <PrivateRoute path="/write-blog" element={<WriteBlog />} />
             <PrivateRoute path="/blog/:id" element={<Blog />} />
             <PrivateRoute path="notifications" element={<Notifications />}  />
+            <PrivateRoute path="/bookmarks" element={<Bookmarks />}  />
             </div>
         <div className="container-wrapper">
           <Container

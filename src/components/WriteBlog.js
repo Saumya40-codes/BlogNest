@@ -1,14 +1,20 @@
-import { Card, TextField, Button, Container } from '@mui/material';
+import { Card, TextField, Button, Container, } from '@mui/material';
 import { useState } from 'react';
 import Axios from 'axios';
 import { useAuth } from "../contexts/AuthContext";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import Autocomplete from '@mui/material/Autocomplete';
+import Chip from '@mui/material/Chip';
+import { useEffect } from 'react';
+
+
 
 const WriteBlog = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const { currentUser } = useAuth();
+  const [selectedTags, setSelectedTags] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,11 +22,21 @@ const WriteBlog = () => {
       title: title,
       body: body,
       like: 0,
+      tags: selectedTags.toLocaleString(),
       user: String(currentUser.email).substring(0, 6),
     }).then(() => {
       console.log('success');
     });
+    setTitle('');
+    setBody('');
+    setSelectedTags([]);
   };
+  
+    const handleTagChange = (event, value) => {
+      setSelectedTags(value);
+    };
+  
+    const allTags = ['Technology', 'Programming', 'Design', 'Art', 'Science','Python','Javascript','HTML','Artificial Intelligence'];
 
   return (
       <Card sx={{ width: "100%", p: 4 }}>
@@ -41,7 +57,22 @@ const WriteBlog = () => {
             onChange={setBody}
             style={{ height: "300px", marginBottom: "60px"}}
           />
-          <Button variant="contained" type="submit" fullWidth>
+          <Autocomplete
+      multiple
+      freeSolo
+      options={allTags}
+      value={selectedTags}
+      onChange={handleTagChange}
+      renderTags={(value, getTagProps) =>
+        value.map((option, index) => (
+          <Chip key={index} label={option} {...getTagProps({ index })} />
+        ))
+      }
+      renderInput={(params) => (
+        <TextField {...params} label="Tags" variant="outlined" />
+      )}
+    />
+          <Button variant="contained" type="submit" fullWidth style={{marginTop:"20px"}}>
             Submit
           </Button>
         </form>

@@ -19,6 +19,7 @@ import Notifications from "./Notifications";
 import { SearchRounded } from "@mui/icons-material";
 import { BookmarkAddRounded } from "@mui/icons-material";
 import { BookmarkAdded } from "@mui/icons-material";
+import Chip from "@mui/material/Chip";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ export default function Dashboard() {
   const [commentCounts, setCommentCounts] = useState({});
   const [showCopyDialog, setShowCopyDialog] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
+  const [showBookmark, setShowBookmark] = useState(false);
 
   const theme = createTheme({
     palette: {
@@ -119,20 +121,31 @@ export default function Dashboard() {
       });
     });
 };
+
 const handleBookmarkClick = (blogId) => {
   Axios.put("http://localhost:5000/api/bookmark/", { blogId: blogId }).then((response) => {
-    setBlogList(
-      blogList.map((val) => {
-        return val.id === blogId
-          ? {
-              ...val,
-              hasbookmark: val.hasbookmark == "Yes" ? "No" : "Yes",
-            }
-          : val;
-      })
-    );
+    setBlogList((prevBlogList) => {
+      return prevBlogList.map((val) => {
+        if (val.id === blogId) {
+          const updatedVal = {
+            ...val,
+            hasbookmark: val.hasbookmark === "Yes" ? "No" : "Yes",
+          };
+          if (updatedVal.hasbookmark === "Yes") {
+            setShowBookmark(true);
+            setTimeout(() => {
+              setShowBookmark(false);
+            }, 2000);
+          }
+          return updatedVal;
+        }
+        return val;
+      });
+    });
   });
 };
+
+
   
   const trending = blogList.sort((a, b) => {
     return b.like - a.like;
@@ -150,6 +163,11 @@ const handleBookmarkClick = (blogId) => {
           <Alert variant="success" style={{ top: "0px", display:"flex", justifyContent:"center", alignItems:"center"}}>
             Link copied to clipboard!
           </Alert>
+        )}
+        {showBookmark && (
+            <Alert variant="success" style={{ top: "-10px", display:"flex", justifyContent:"center", alignItems:"center", padding:"20px,100%,20px,100%", paddingBottom:"-10px"}}>
+                Bookmark Added! <Link to={'/bookmarks'}> Check Out Here !</Link>
+            </Alert>
         )}
         <Grid container spacing={2} justifyContent="flex-end" sx={{ marginBottom: "20px", marginRight:"20px", marginTop:"-50px" }}>
           <Grid item>
@@ -169,6 +187,7 @@ const handleBookmarkClick = (blogId) => {
               <Notifications handleClose={handleNotificationClick} host={host} />
               </Alert>
             )}
+            
             <Button variant="contained" component={Link} to="/update-profile">
               Update Profile
             </Button>
@@ -202,6 +221,9 @@ const handleBookmarkClick = (blogId) => {
                             <div dangerouslySetInnerHTML={{ __html: val.body.length > 100 ? `${val.body.substring(0, 100)}....` : val.body }}></div>
                             {val.body.length > 100 && <Link to={`blog/${val.id}`}>Read More</Link>}
                           </Typography>
+                          { val.tags && val.tags.split(',').map((tag) => (
+                            <Chip label={tag} style={{marginRight:"5px", marginTop:"5px"}} />
+                          ))}
                           <Typography variant="subtitle1" sx={{ display: "flex", alignItems: "center" }}>
                           <IconButton aria-label="like" onClick={() => handleLikeClick(val.id, val.user)}>
                           <ThumbUpIcon />
@@ -220,7 +242,7 @@ const handleBookmarkClick = (blogId) => {
                         <Tooltip title="Bookmark">
                             {val.hasbookmark == "Yes" ? <BookmarkAdded onClick={() => handleBookmarkClick(val.id)} /> : <BookmarkAddRounded onClick={() => handleBookmarkClick(val.id)}  />}
                         </Tooltip>
-                        </IconButton>
+                        </IconButton>        
                          </Typography>
                         </CardContent>
                       </Card>
