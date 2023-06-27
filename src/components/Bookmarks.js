@@ -13,6 +13,9 @@ import CommentIcon from '@mui/icons-material/Comment'
 import ShareIcon from '@mui/icons-material/Share'
 import { Typography } from '@mui/material'
 import {Alert} from '@mui/material'
+import {Grid} from '@mui/material'
+import { Link } from 'react-router-dom'
+import Chip from '@mui/material/Chip'
 
 const Bookmarks = () => {
     const { currentUser } = useAuth()
@@ -116,16 +119,24 @@ const Bookmarks = () => {
         <h1>Bookmarks</h1>
     </div>
     <div >
-        <Card style={{width:""}}>
+        <Card>
         <CardContent>
-            {blogList.filter((val) => {
-                return val.hasbookmark === 'Yes' && val.user === String(currentUser.email).substring(0, 6)
-            }).map((val) => {
-                return (
-                    <div>
-                        <h1>{val.title}</h1>
-                        <div dangerouslySetInnerHTML={{ __html: val.body.length > 100 ? `${val.body.substring(0, 100)}....` : val.body }}></div>
-                                                  <Typography variant="subtitle1" sx={{ display: "flex", alignItems: "center" }}>
+        <Grid container spacing={2}>
+                  {blogList?.map((val) => (
+                    <Grid item xs={12} key={val.id}>
+                      <Card>
+                        <CardContent>
+                          <Typography variant="h5" component={Link} to={`blog/${val.id}`} style={{textDecoration:"none", color:"blueviolet"}}>
+                            {val.title}
+                          </Typography>
+                          <Typography variant="body1">
+                            <div dangerouslySetInnerHTML={{ __html: val.body.length > 200 ? `${val.body.substring(0, 200)}....` : val.body }}></div>
+                            {val.body.length > 200 && <Link to={`blog/${val.id}`}>Read More</Link>}
+                          </Typography>
+                          { val.tags && val.tags.split(',').map((tag) => (
+                            <Chip label={tag} style={{marginRight:"5px", marginTop:"5px"}} />
+                          ))}
+                          <Typography variant="subtitle1" sx={{ display: "flex", alignItems: "center" }}>
                           <IconButton aria-label="like" onClick={() => handleLikeClick(val.id, val.user)}>
                           <ThumbUpIcon />
                           </IconButton>
@@ -133,26 +144,23 @@ const Bookmarks = () => {
                           <IconButton aria-label="comment">
                           <CommentIcon />
                          </IconButton>
-                            {commentCounts[val.id] || 0}
-                         <IconButton aria-label="share">
+                         {commentCounts[val.id] || 0}
+                         <IconButton aria-label="share" onClick={() => handleShareClick(val.id)}>
                         <Tooltip title="Share">
-                           <ShareIcon onClick = {()=> handleShareClick(val.id)} />
+                           <ShareIcon />
                         </Tooltip>
                         </IconButton>
                         <IconButton aria-label="bookmark">
                         <Tooltip title="Bookmark">
-                            {val.hasbookmark === "Yes" ? (
-                                <BookmarkAdded onClick={() => handleBookmarkClick(val.id)} />
-                            ) : (
-                                <BookmarkAddRounded onClick={() => handleBookmarkClick(val.id)} />
-                            )}
+                            {val.hasbookmark == "Yes" ? <BookmarkAdded onClick={() => handleBookmarkClick(val.id)} /> : <BookmarkAddRounded onClick={() => handleBookmarkClick(val.id)}  />}
                         </Tooltip>
-                        </IconButton>
+                        </IconButton>        
                          </Typography>
-                    </div>
-                )
-            }
-            )}
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))}
+                </Grid>
         </CardContent>
         </Card>
         </div>
