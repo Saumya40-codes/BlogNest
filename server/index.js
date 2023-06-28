@@ -7,7 +7,7 @@ const cors = require("cors");
 const db = mysql.createPool({
     host: "localhost",
     user: "root",
-    password: "your password",
+    password: "saumya",
     database: "crudreact",
 });
 
@@ -83,9 +83,10 @@ app.post("/api/insert/", (req, res) => {
     const body = req.body.body;
     const like = req.body.like;
     const user = req.body.user;
+    const tags = req.body.tags;
 
-    const sqlInsert = "INSERT INTO blogs (title, body, `like`, `user`) VALUES (?,?,?,?)";
-    db.query(sqlInsert, [title, body, like,user], (err, result) => {
+    const sqlInsert = "INSERT INTO blogs (title, body, `like`, `user`, tags) VALUES (?,?,?,?,?)";
+    db.query(sqlInsert, [title, body, like,user, tags], (err, result) => {
         res.send(result);
     });
 });
