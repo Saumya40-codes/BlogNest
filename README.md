@@ -33,7 +33,7 @@ To get started with BlogNest, follow the instructions below:
 
 5. three tables till now
    
-   (1) ![image](https://github.com/Saumya40-codes/BlogNest/assets/115284013/c24afb75-24cc-42b9-8885-46a219309d1e)   (Name: blogs) <br />
+   (1) ![image](https://github.com/Saumya40-codes/BlogNest/assets/115284013/42f338ea-a10e-433a-a198-bb866859cd0c)   (Name: blogs) <br />
    (2) ![image](https://github.com/Saumya40-codes/BlogNest/assets/115284013/af24d86c-9485-4de7-b2e8-dfb17f65074f)   (Name: comments) <br />
    (3) ![image](https://github.com/Saumya40-codes/BlogNest/assets/115284013/8f33ef12-cf47-41f8-a63a-d7cef608328e)   (Name: notifs)  <br />
 
@@ -62,4 +62,17 @@ Liking Comments: Users can like and interact with blog posts, promoting engageme
 Sharing of Blogs: Users can easily share their favorite blog posts with others by generating shareable links or through social media integration.
 
 Search Through Blogs: BlogNest provides functionality allowing users to search for specific blogs or topics of interest, enabling efficient navigation through the platform.
+
+Add Tags to Your Blog: Give an overview of your blog through already existing or custom made tags.
+
+Bookmark the blogs: Want to save the blog to read it in the future? Bookmark it!!
+
+
+## Demo of BlogNest (Still under Development)
+
+https://github.com/Saumya40-codes/BlogNest/assets/115284013/d4357151-aa34-421b-a652-e0d30c282552
+
+
+
+
    
