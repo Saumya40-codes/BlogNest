@@ -20,6 +20,7 @@ import { SearchRounded } from "@mui/icons-material";
 import { BookmarkAddRounded } from "@mui/icons-material";
 import { BookmarkAdded } from "@mui/icons-material";
 import Chip from "@mui/material/Chip";
+import { Bookmark } from "@mui/icons-material";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -187,7 +188,9 @@ const handleBookmarkClick = (blogId) => {
               <Notifications handleClose={handleNotificationClick} host={host} />
               </Alert>
             )}
-            
+            <Button variant="contained" component={Link} to="/bookmarks" style={{marginRight:"20px"}}>
+              <Bookmark />  Bookmarks
+            </Button>
             <Button variant="contained" component={Link} to="/update-profile">
               Update Profile
             </Button>
