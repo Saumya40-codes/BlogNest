@@ -50,7 +50,7 @@ function App() {
     <Router>
       <AuthProvider>
       <ThemeProvider theme={theme}>
-        <ToastContainer autoClose={3000} position="top-right" />
+        <ToastContainer autoClose={2000} position="top-right" />
         <div className="private-routes-wrapper">
           <IconButton onClick={toggleDarkMode}>
               {darkMode ? <Brightness7  /> : <Brightness4 />}  
