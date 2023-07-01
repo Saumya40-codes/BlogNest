@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Card,Typography} from "@mui/material";
+import {Button} from "@mui/material/Button";
 import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
@@ -42,6 +43,11 @@ const Blog = () => {
                 {/* Blog content */}
                 <h2 className="text-center mb-4">{val.title}</h2>
                 <div dangerouslySetInnerHTML={{ __html: val.body }}></div>
+                <div className="d-flex justify-content-right align-items-right">
+                  <Button variant="contained" color="primary" style={{ margin: "10px" }}>
+                    Edit
+                  </Button>
+                  </div>
                 {/* Delete button */}
                 {val.user === String(currentUser?.email).substring(0, 6) && (
                   <div>

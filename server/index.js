@@ -78,6 +78,14 @@ app.get("/api/get/notif",(req,res)=>{
     })
 })
 
+app.delete("/api/delete/notif/:id", (req, res) => {
+    const id = req.params.id;
+    const sqlDelete = "DELETE FROM notifs WHERE id = ?";
+    db.query(sqlDelete, id, (err, result) => {
+        res.send(result);
+    });
+});
+
 app.put("/api/update/comments", (req, res) => {
     const id = req.body.id;
     const comment = req.body.comment;
