@@ -44,9 +44,6 @@ const Blog = () => {
                 <h2 className="text-center mb-4">{val.title}</h2>
                 <div dangerouslySetInnerHTML={{ __html: val.body }}></div>
                 <div className="d-flex justify-content-right align-items-right">
-                  <Button variant="contained" color="primary" style={{ margin: "10px" }}>
-                    Edit
-                  </Button>
                   </div>
                 {/* Delete button */}
                 {val.user === String(currentUser?.email).substring(0, 6) && (
