@@ -7,7 +7,7 @@ import NewBlog from "./NewBlog";
 import Axios from "axios";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 import { Grid, Card, CardContent, Typography, Button, IconButton } from "@mui/material";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import CommentIcon from '@mui/icons-material/Comment';

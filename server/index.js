@@ -4,10 +4,12 @@ const mysql = require("mysql");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+require('dotenv').config();
+
 const db = mysql.createPool({
     host: "localhost",
     user: "root",
-    password: "saumya",
+    password: process.env.DB_PASSWORD,
     database: "crudreact",
 });
 
@@ -75,6 +77,30 @@ app.get("/api/get/notif",(req,res)=>{
         res.send(result)
     })
 })
+
+app.put("/api/update/comments", (req, res) => {
+    const id = req.body.id;
+    const comment = req.body.comment;
+    const edited = req.body.edited;
+    const sqlUpdate = "UPDATE comments SET comment = ?, edited = ? WHERE id = ?";
+    db.query(sqlUpdate, [comment, edited, id], (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Error updating comment");
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  });
+  
+
+app.delete("/api/delete/comments/:id", (req, res) => {
+    const id = req.params.id;
+    const sqlDelete = "DELETE FROM comments WHERE id = ?";
+    db.query(sqlDelete, id, (err, result) => {
+        res.send(result);
+    });
+});
 
 
 app.post("/api/insert/", (req, res) => {
