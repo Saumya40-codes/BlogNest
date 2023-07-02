@@ -4,6 +4,7 @@ const mysql = require("mysql");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+
 require('dotenv').config();
 
 const db = mysql.createPool({
@@ -32,6 +33,20 @@ app.post("/api/comments", (req, res) => {
     const sqlInsert = "INSERT INTO comments (commentId, comment, `user`) VALUES (?,?,?)";
     db.query(sqlInsert, [commentId, comment, user], (err, result) => {
         res.send(result);
+    });
+});
+
+app.put("/api/edit", (req, res) => {
+    const id = req.body.id;
+    const body = req.body.body;
+    const sqlUpdate = "UPDATE blogs SET body = ? WHERE id = ?";
+    db.query(sqlUpdate, [body, id], (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send("Error updating blog");
+        } else {
+            res.sendStatus(200);
+        }
     });
 });
 

@@ -20,6 +20,7 @@ import { IconButton } from "@mui/material";
 import Notifications from "./components/Notifications";
 import Search from "./components/Search";
 import Bookmarks from "./components/Bookmarks";
+import EditBlog from "./components/EditBlog";
 
 function App() {
 
@@ -62,6 +63,7 @@ function App() {
             <PrivateRoute path="/blog/:id" element={<Blog />} />
             <PrivateRoute path="notifications" element={<Notifications />}  />
             <PrivateRoute path="/bookmarks" element={<Bookmarks />}  />
+            <PrivateRoute path="/edit-blog/:id" element={<EditBlog />}  />
             </div>
         <div className="container-wrapper">
           <Container

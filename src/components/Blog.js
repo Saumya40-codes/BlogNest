@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Card,Typography} from "@mui/material";
-import {Button} from "@mui/material/Button";
+import {Button} from "@mui/material";
 import { useParams } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import Axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -44,9 +45,11 @@ const Blog = () => {
                 <h2 className="text-center mb-4">{val.title}</h2>
                 <div dangerouslySetInnerHTML={{ __html: val.body }}></div>
                 <div className="d-flex justify-content-right align-items-right">
+                <Link to={`/edit-blog/${val.id}`}>
                   <Button variant="contained" color="primary" style={{ margin: "10px" }}>
                     Edit
                   </Button>
+                  </Link>
                   </div>
                 {/* Delete button */}
                 {val.user === String(currentUser?.email).substring(0, 6) && (
