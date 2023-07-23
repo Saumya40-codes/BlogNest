@@ -2,6 +2,32 @@
 
 BlogNest is a full-stack web application built using React, Node.js, and MySQL. It is a powerful and intuitive blogging platform that allows users to create, read, and share blog posts. The application also includes features such as Firebase authentication, reading modes, liking comments, and a search functionality to easily navigate through the blogs.
 
+## Demo of BlogNest (Still under Development)
+
+
+https://github.com/Saumya40-codes/BlogNest/assets/115284013/583a52b1-be38-40f8-9d5b-022f9c2ffc95
+
+
+## Features
+Firebase Authentication: Users can sign up and log in to BlogNest using their Firebase accounts, ensuring secure access to the platform.
+
+Write Blog: Authenticated users can create and publish their own blog posts using an intuitive and user-friendly interface.
+
+Read Blog: Users can browse through a collection of blog posts, view the details of each post, and read the content in a clean and visually appealing layout.
+
+Reading Modes: BlogNest offers different reading modes, such as light mode and dark mode, allowing users to customize their reading experience.
+
+Comments: Users can like and interact with blog posts, promoting engagement and community interaction.
+
+Sharing of Blogs: Users can easily share their favorite blog posts with others by generating shareable links or through social media integration.
+
+Search Through Blogs: BlogNest provides functionality allowing users to search for specific blogs or topics of interest, enabling efficient navigation through the platform.
+
+Add Tags to Your Blog: Give an overview of your blog through already existing or custom made tags.
+
+Bookmark the blogs: Want to save the blog to read it in the future? Bookmark it!!
+
+
 ## Getting Started
 
 To get started with BlogNest, follow the instructions below:
@@ -45,32 +71,7 @@ To get started with BlogNest, follow the instructions below:
 
 7. run frontend
    ### `npm start`
-   
 
-
-## Features
-Firebase Authentication: Users can sign up and log in to BlogNest using their Firebase accounts, ensuring secure access to the platform.
-
-Write Blog: Authenticated users can create and publish their own blog posts using an intuitive and user-friendly interface.
-
-Read Blog: Users can browse through a collection of blog posts, view the details of each post, and read the content in a clean and visually appealing layout.
-
-Reading Modes: BlogNest offers different reading modes, such as light mode and dark mode, allowing users to customize their reading experience.
-
-Liking Comments: Users can like and interact with blog posts, promoting engagement and community interaction.
-
-Sharing of Blogs: Users can easily share their favorite blog posts with others by generating shareable links or through social media integration.
-
-Search Through Blogs: BlogNest provides functionality allowing users to search for specific blogs or topics of interest, enabling efficient navigation through the platform.
-
-Add Tags to Your Blog: Give an overview of your blog through already existing or custom made tags.
-
-Bookmark the blogs: Want to save the blog to read it in the future? Bookmark it!!
-
-
-## Demo of BlogNest (Still under Development)
-
-https://github.com/Saumya40-codes/BlogNest/assets/115284013/d4357151-aa34-421b-a652-e0d30c282552
 
 
 
